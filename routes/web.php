@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/about', [GeneralController::class, 'about'])->name('page.about');
+    Route::get('/products', [ProductController::class, 'index'])->name('page.products');
+    Route::get('/product/{id}', [ProductController::class, 'show'])->name('page.product.detail');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('page.checkout');
+    Route::post('/checkout', [CheckoutController::class, 'addToCart'])->name('page.checkout.add');
+    Route::post('/checkoutclear', [CheckoutController::class, 'clearAllCart'])->name('page.checkout.clear');
 });
 
 require __DIR__.'/auth.php';

@@ -11,8 +11,8 @@ class GeneralController extends Controller
         return view('welcome');
     }
 
-    public function products()
+    public function about()
     {
-        return view('product');
+        return view('page.about');
     }
 }
