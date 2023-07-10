@@ -56,8 +56,12 @@
                                         <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="{{ Vite::asset($item->attributes->image) }}" alt="" />
                                         <div class="flex w-full flex-col px-4 py-4">
                                             <span class="font-semibold">{{ $item['name'] }}</span>
-                                            <span class="float-right text-gray-400">42EU - 8.5US</span>
+                                            <span class="float-right text-gray-400">Quantity: {{ $item['quantity'] }}</span>
                                             <p class="text-lg font-bold">Rp {{ round($item->price, -3) }}</p>
+                                        </div>
+                                        <div class="flex items-center m-2">
+                                          <div class="p-2 mx-1 h-auto bg-slate-800 text-white rounded-md cursor-pointer" id="plus-sign">+</div>
+                                          <div class="p-2 mx-1 h-auto bg-slate-800 text-white rounded-md cursor-pointer" id="minus-sign">-</div>
                                         </div>
                                     </div>
                                 @endforeach
@@ -68,10 +72,10 @@
                               <input class="peer hidden" id="radio_1" type="radio" name="radio" checked />
                               <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                               <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
-                                <img class="w-14 object-contain" src="/images/naorrAeygcJzX0SyNI4Y0.png" alt="" />
+                                <img class="w-14 object-contain" src="{{ Vite::asset('resources/image/fedex-express.png') }}" alt="fedex-logo" />
                                 <div class="ml-5">
                                   <span class="mt-2 font-semibold">Fedex Delivery</span>
-                                  <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
+                                  <p class="text-slate-500 text-sm leading-6">Delivery: 1-2 Days</p>
                                 </div>
                               </label>
                             </div>
@@ -79,7 +83,7 @@
                               <input class="peer hidden" id="radio_2" type="radio" name="radio" checked />
                               <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                               <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_2">
-                                <img class="w-14 object-contain" src="/images/oG8xsl3xsOkwkMsrLGKM4.png" alt="" />
+                                <img class="w-14 object-contain" src="{{ Vite::asset('resources/image/fedex-logo.png') }}" alt="" />
                                 <div class="ml-5">
                                   <span class="mt-2 font-semibold">Fedex Delivery</span>
                                   <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
@@ -143,17 +147,21 @@
                               <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-gray-900">Subtotal</p>
                                 <p class="font-semibold text-gray-900">
-                                    Rp 340000
+                                    Rp {{ round($subtotal, -3) }}
                                 </p>
                               </div>
                               <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-gray-900">Shipping</p>
-                                <p class="font-semibold text-gray-900">Rp 30000</p>
+                                @if (count($data) == 0)
+                                  <p class="font-semibold text-gray-900">Rp 0</p>
+                                @else
+                                  <p class="font-semibold text-gray-900">Rp {{ count($data) * 10000 }}</p>
+                                @endif
                               </div>
                             </div>
                             <div class="mt-6 flex items-center justify-between">
                               <p class="text-sm font-medium text-gray-900">Total</p>
-                              <p class="text-2xl font-semibold text-gray-900">$408.00</p>
+                              <p class="text-2xl font-semibold text-gray-900">Rp {{ round($subtotal, -3) + (count($data) * 10000) }}</p>
                             </div>
                           </div>
                           <form action="{{ route('page.checkout.clear') }}" method="POST">
@@ -168,3 +176,4 @@
         </div>
     </div>
 </x-app-layout>
+
