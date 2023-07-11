@@ -13,9 +13,6 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Home') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('page.about')" :active="request()->routeIs('page.about')">
                         {{ __('About') }}
                     </x-nav-link>
                     <x-nav-link :href="route('page.products')" :active="request()->routeIs('page.products')">
@@ -23,6 +20,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('page.checkout')" :active="request()->routeIs('page.checkout')">
                         {{ __('Checkout') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('page.transaction')" :active="request()->routeIs('page.transaction')">
+                        {{ __('Transaction') }}
                     </x-nav-link>
                 </div>
             </div>

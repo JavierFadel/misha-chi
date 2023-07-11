@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('page.checkout');
     Route::post('/checkout', [CheckoutController::class, 'addToCart'])->name('page.checkout.add');
     Route::post('/checkoutclear', [CheckoutController::class, 'clearAllCart'])->name('page.checkout.clear');
+    Route::post('/checkoutupdate', [CheckoutController::class, 'updateCart'])->name('page.checkout.update');
+    Route::get('/transaction', [CheckoutController::class, 'transaction'])->name('page.transaction');
 });
 
 require __DIR__.'/auth.php';

@@ -38,6 +38,11 @@ class CheckoutController extends Controller
 
     public function updateCart(Request $request)
     {
+        if ($request->quantity <= 0) {
+            \Cart::remove($request->id);
+            session()->flash('success', 'Item cart removed sucessfully');
+        }
+
         \Cart::update(
             $request->id,
             [
@@ -50,7 +55,7 @@ class CheckoutController extends Controller
 
         session()->flash('success', 'Item Cart is Updated Successfully !');
 
-        return redirect()->route('cart.list');
+        return redirect()->route('page.checkout');
     }
 
     public function removeCart(Request $request)
@@ -58,7 +63,7 @@ class CheckoutController extends Controller
         \Cart::remove($request->id);
         session()->flash('success', 'Item Cart Remove Successfully !');
 
-        return redirect()->route('cart.list');
+        return redirect()->route('page.checkout');
     }
 
     public function clearAllCart()
@@ -67,6 +72,6 @@ class CheckoutController extends Controller
 
         session()->flash('success', 'All Item Cart Clear Successfully !');
 
-        return redirect()->route('page.products');
+        return redirect()->route('page.checkout');
     }
 }

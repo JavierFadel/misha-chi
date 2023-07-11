@@ -60,12 +60,20 @@
                                             <p class="text-lg font-bold">Rp {{ round($item->price, -3) }}</p>
                                         </div>
                                         <div class="flex items-center m-2">
-                                          <div class="p-2 mx-1 h-auto bg-slate-800 text-white rounded-md cursor-pointer" id="plus-sign">+</div>
-                                          <div class="p-2 mx-1 h-auto bg-slate-800 text-white rounded-md cursor-pointer" id="minus-sign">-</div>
+                                          <form action="{{ route('page.checkout.update') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $item->id }}">
+                                            <input type="number" name="quantity" value="{{ $item->quantity }}" class="w-20 text-center h-10 text-gray-800 outline-none rounded border border-gray-600 py-3">
+                                            <button class="px-4 mt-1 py-1.5 text-sm rounded shadow text-violet-100 bg-gray-800">Update</button>
+                                          </form>
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
+                            </div>  
+                            <form action="{{ route('page.checkout.clear') }}" method="POST">
+                              @csrf
+                              <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Clear Cart</button>
+                            </form>
                           <p class="mt-8 text-lg font-medium">Shipping Methods</p>
                           <form class="mt-5 grid gap-6">
                             <div class="relative">
@@ -164,6 +172,7 @@
                               <p class="text-2xl font-semibold text-gray-900">Rp {{ round($subtotal, -3) + (count($data) * 10000) }}</p>
                             </div>
                           </div>
+                          {{-- TODO: create history here: --}}
                           <form action="{{ route('page.checkout.clear') }}" method="POST">
                             @csrf
                             <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
