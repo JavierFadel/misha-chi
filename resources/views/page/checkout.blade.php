@@ -173,7 +173,7 @@
                             </div>
                           </div>
                           {{-- TODO: create history here: --}}
-                          <form action="{{ route('page.checkout.clear') }}" method="POST">
+                          <form action="{{ route('page.transaction.store') }}" method="POST">
                             @csrf
                             <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
                           </form>

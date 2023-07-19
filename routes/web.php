@@ -4,6 +4,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'addToCart'])->name('page.checkout.add');
     Route::post('/checkoutclear', [CheckoutController::class, 'clearAllCart'])->name('page.checkout.clear');
     Route::post('/checkoutupdate', [CheckoutController::class, 'updateCart'])->name('page.checkout.update');
-    Route::get('/transaction', [CheckoutController::class, 'transaction'])->name('page.transaction');
+
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('page.transaction');
+    Route::post('/transaction-store', [TransactionController::class, 'store'])->name('page.transaction.store');
 });
 
 require __DIR__.'/auth.php';

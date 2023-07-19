@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+    // TODO: when the 'place order' button is submitted, then store all products in the cart.
+    // Then the cart helper is cleared.
+    // So you should have a table to store the 'transaction' of the carts.
+
     /**
      * Display a listing of the resource.
      */
@@ -29,11 +34,24 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Transaction;
+        // $data = new Transaction;
 
         $arr = \Cart::getContent();
 
-        $transactionId = $data->id;
+        if (!\Cart::isEmpty()) {
+            foreach ($arr as $item) {
+                $data = [
+                    'user_id' => Auth::id(),
+                    'product_id' => $item->id,
+                    'quantity' => $item->quantity,
+                    'total' => round(($item->price * $item->quantity), -3)
+                ];
+                Transaction::create($data);
+                \Cart::clear();
+            }
+        }
+
+        return redirect()->route('page.transaction');
     }
 
     /**
